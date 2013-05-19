@@ -1,0 +1,26 @@
+{% extends "enc/base.html" %}
+
+{% block content %}
+<header class="jumbotron subhead" id="overview">
+  <h1>Create Configuration</h1>
+</header>
+<section id="form">
+  <form class="form-horizontal" action="" method="post">{% csrf_token %}
+    <fieldset>
+    {% for field in form %}
+      <div class="control-group">
+        <label class="control-label">{{ field.label }}</label>
+        <div class="controls">
+        {{ field }} {{ field.errors }} 
+        <a href="#" class="btn-mini" rel="popover" data-content="{{ field.help_text }}"><i class="icon-question-sign"></i></a>
+        </div> 
+      </div>
+    {% endfor %}
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button name="cancel" value="cancel" class="btn">Cancel</button>
+      </div>
+    </fieldset>
+  </form>
+</section>
+{% endblock %}

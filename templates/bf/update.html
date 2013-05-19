@@ -1,0 +1,61 @@
+{% extends "bf/base.html" %}
+
+{% block content %}
+<header class="jumbotron subhead" id="overview">
+  <h1>Edit Application</h1>
+</header>
+<section id="configuration">
+  <h2>{{ application.name }}</h2>
+</section>
+<section id="modules">
+  <div class="row">
+    <div class="span12">
+      <form class="form-horizontal" action="" method="post">{% csrf_token %}
+        <formset>
+            {{ package_formset.management_form }}
+            <input type='hidden' name='name' id='name' value='{{ application.name }}'/>
+            {% for form  in package_formset %}
+              {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+              {% endfor %}
+              {% for field in form.visible_fields %}
+                {% if field.name == "key" or field.name == "source_url" %}
+                  <input type='hidden' name='{{ field.html_name }}' id='id_{{ field.html_name }}' value='{{ field.value }}' />
+                {% else %}{% if field.name == "name" %}
+                  <div class="control-group">
+                    <label class="control-label">{{ field.label }}</label>
+                    <div class="controls"><h4>{{ field.value }}</h4></div>
+                    <input type='hidden' name='{{ field.html_name }}' id='id_{{ field.html_name }}' value='{{ field.value }}' />
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label">Version</label>
+                    <div class="controls">
+                      <select name="{{ field.value }}_version" id="id_{{ field.value }}_version">
+                      {% for key, value in package_versions.items %}
+                        {% if key == field.value %}
+                          {% for version in value %}
+                            <option value="{{ version }}">{{ version }}</option>
+                          {% endfor %}
+                        {% endif %}
+                      {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                {% else %}
+                  <div class="control-group">
+                    <label class="control-label">{{ field.label }}</label>
+                    <div class="controls">{{ field }} {{ field.errors }}</div>
+                  </div>
+                {% endif %}{% endif %}
+              {% endfor %}
+            {% endfor %}
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Update Packages</button>
+            <a class="btn" href="/bf/app/{{ application.name }}">Cancel</a>
+          </div>
+        </formset>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

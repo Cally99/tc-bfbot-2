@@ -1,0 +1,9 @@
+{% extends "bf/base.html" %}
+
+{% block content %}
+  {% if messages %}
+    {% for message in messages %}
+      <h1>woot {{ message }}</h1>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

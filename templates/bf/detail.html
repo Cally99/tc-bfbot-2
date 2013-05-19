@@ -1,0 +1,48 @@
+{% extends "bf/base.html" %}
+
+{% block content %}
+<header class="jumbotron subhead" id="overview">
+  <h1>Application Details</h1>
+</header>
+<section id="configuration">
+  <div class="page-header">
+    <h2>{{ application.name }}</h2>
+    <a class="btn pull-right" href="/bf/edit/{{ application.name }}"><i class="icon-edit"></i> Edit</a>
+  </div>
+</section>
+<section id="modules">
+  <div class="row">
+    <div class="span12">
+      <h3>Packages</h3>
+      <table class="table table-bordered table-striped">
+        <colgroup>
+          <col class="span5">
+          <col class="span4">
+          <col class="span3">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Production Version</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for package in package_list %}
+          <tr>
+              <td>{{ package.name }}</td>
+              {{ package_version }}
+              <td>{% for key, value in package_versions.items %}
+                {% if key == package.name %}
+                  {{ value }}
+                {% endif %}
+              {% endfor %}</td>
+              <td>{{ package.source }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endblock %}

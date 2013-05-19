@@ -1,0 +1,34 @@
+{% extends "bf/base.html" %}
+
+{% block content %}
+<div class="hero-unit">
+    <h1>Welcome</h1>
+    <p>Please login with your ACCOUNT-01 credentials to continue</p>
+</div>
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+<form class="form-horizontal" method="post" action="{% url "django.contrib.auth.views.login" %}">
+{% csrf_token %}
+  <fieldset>
+    <div class="control-group">
+        <label class="control-label">{{ form.username.label_tag }}</label>
+        <div class="controls">
+        {{ form.username }} {{ form.username.errors }} 
+        </div> 
+    </div>
+    <div class="control-group">
+        <label class="control-label">{{ form.password.label_tag }}</label>
+        <div class="controls">
+        {{ form.password }} {{ form.password.errors }} 
+        </div> 
+    </div>
+    <div class="form-actions">
+      <input type="submit" value="Login" />
+      <input type="hidden" name="next" value="{{ next }}" />
+    </div>
+  </fieldset>
+</form>
+
+{% endblock %}

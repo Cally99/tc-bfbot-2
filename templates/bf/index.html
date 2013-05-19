@@ -1,0 +1,58 @@
+{% extends "bf/base.html" %}
+
+{% block title %}T-Appdate: Home{% endblock %}
+
+{% block content %}
+<div class="hero-unit">
+    <h1>Welcome to the Betfair Bot.</h1>
+    <p>You are at the dashboard. Here you will find the current standings, the
+    current race as well as upcoming races below.</p>
+</div>
+
+<div class="page-header row">
+    <div class="span6"><h1>Races</h1></div>
+    <div class="span6">
+<!--       <form class="form-search pull-right"> -->
+<!--         <input type="text" class="input-large search-query"> -->
+<!--         <button type="submit" class="btn"><i class="icon-search"></i></button> -->
+<!--       </form> -->
+    </div>
+</div>
+
+<div class ="row">
+    <div class="span12">
+        <table class="table table-bordered table-striped">
+          <colgroup>
+            <col class="span3">
+            <col class="span1">
+            <col class="span2">
+            <col class="span2">
+            <col class="span2">
+            <col class="span2">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>ID</th>
+              <th>Open time</th>
+              <th>Market time</th>
+              <th>Amount Matched</th>
+              <th>Selected horse</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for race in race_list %}
+              <tr>
+                <td>{{ race.name }}</td>
+                <td>{{ race.market_id }}</td>
+                <td>{{ race.open_time }}</td>
+                <td>{{ race.market_time }}</td>
+                <td>{{ race.matched_amount }}</td>
+                <td>{{ race.location }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
