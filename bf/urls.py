@@ -6,4 +6,5 @@ from bf.views import RaceList
 
 urlpatterns = patterns('',
     url(r'^$', login_required(RaceList.as_view())),
+    url(r'^logout/', 'django.contrib.auth.views.logout_then_login', {'login_url': '/accounts/login/?next=/bf/'}),
 )
