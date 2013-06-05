@@ -10,12 +10,16 @@ class Race(models.Model):
     open_time = models.DateTimeField()
     market_time = models.DateTimeField()
     matched_amount = models.DecimalField(max_digits=19, decimal_places=2)
+    distance = models.IntegerField()
+    condition = models.CharField(max_length=200)
+
 
 class Horse(models.Model):
     def __unicode__(self):
         return self.name
     name = models.CharField(max_length=200, unique=True)
     horse_id = models.IntegerField(unique=True)
+
 
 class RaceData(models.Model):
     def __unicode__(self):
@@ -31,5 +35,28 @@ class RaceData(models.Model):
     lv1 = models.DecimalField(max_digits=6, decimal_places=2)
     lp2 = models.DecimalField(max_digits=6, decimal_places=2)
     lv2 = models.DecimalField(max_digits=6, decimal_places=2)
+
+
+class RaceResult(models.Model):
+    def __unicode__(self):
+        return self.name
+    name = models.ForeignKey(Race)
+    horse = models.ForeignKey(Horse)
+    placing = models.IntegerField()
+    distance = models.CharField(max_length=200)
+    winning_time = models.TimeField()
+
+
+class Jockey(models.Model):
+    def __unicode__(self):
+        return self.name
+    name = models.CharField(max_length=200)
+
+
+class Trainer(models.Model):
+    def __unicode__(self):
+        return self.name
+    name = models.CharField(max_length=200)
+
 
 
