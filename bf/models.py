@@ -13,10 +13,16 @@ class Race(models.Model):
     distance = models.IntegerField()
     condition = models.CharField(max_length=200)
 
+class Trainer(models.Model):
+    def __unicode__(self):
+        return self.name
+    name = models.CharField(max_length=200)
+
 
 class Horse(models.Model):
     def __unicode__(self):
         return self.name
+    trainer = models.ForeignKey(Trainer)
     name = models.CharField(max_length=200, unique=True)
     horse_id = models.IntegerField(unique=True)
 
@@ -40,7 +46,7 @@ class RaceData(models.Model):
 class RaceResult(models.Model):
     def __unicode__(self):
         return self.name
-    name = models.ForeignKey(Race)
+    market_id = models.ForeignKey(Race)
     horse = models.ForeignKey(Horse)
     placing = models.IntegerField()
     distance = models.CharField(max_length=200)
@@ -51,12 +57,7 @@ class Jockey(models.Model):
     def __unicode__(self):
         return self.name
     name = models.CharField(max_length=200)
-
-
-class Trainer(models.Model):
-    def __unicode__(self):
-        return self.name
-    name = models.CharField(max_length=200)
+    weight = models.IntegerField()
 
 
 
