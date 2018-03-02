@@ -22,7 +22,7 @@ class Trainer(models.Model):
 class Horse(models.Model):
     def __unicode__(self):
         return self.name
-    trainer = models.ForeignKey(Trainer)
+    trainer = models.ForeignKey(Trainer,on_delete=models.CASCADE)
     name = models.CharField(max_length=200, unique=True)
     horse_id = models.IntegerField(unique=True)
 
@@ -30,8 +30,8 @@ class Horse(models.Model):
 class RaceData(models.Model):
     def __unicode__(self):
         return self.time_id
-    horse = models.ForeignKey(Horse)
-    race = models.ForeignKey(Race)
+    horse = models.ForeignKey(Horse, on_delete=models.CASCADE)
+    race = models.ForeignKey(Race, on_delete=models.CASCADE)
     time_id = models.IntegerField(unique=True)
     bp1 = models.DecimalField(max_digits=6, decimal_places=2)
     bv1 = models.DecimalField(max_digits=6, decimal_places=2)
@@ -46,8 +46,8 @@ class RaceData(models.Model):
 class RaceResult(models.Model):
     def __unicode__(self):
         return self.name
-    market_id = models.ForeignKey(Race)
-    horse = models.ForeignKey(Horse)
+    market_id = models.ForeignKey(Race, on_delete=models.CASCADE)
+    horse = models.ForeignKey(Horse, on_delete=models.CASCADE)
     placing = models.IntegerField()
     distance = models.CharField(max_length=200)
     winning_time = models.TimeField()

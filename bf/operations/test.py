@@ -12,4 +12,4 @@ url = endpoint + "listEventTypes/"
 response = requests.post(url, data=json_req, headers=header)
 
 
-print json.dumps(json.loads(response.text), indent=3)
+print (json.dumps(json.loads(response.text), indent=3))

@@ -1,10 +1,10 @@
-from django.conf.urls import patterns, include, url
+from django.urls import include, path
 from django.contrib import admin
-
+import django.contrib.auth.views as auth_views
 admin.autodiscover()
 
-urlpatterns = patterns('',
-    url(r'^bf/', include('bf.urls')),
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
-)
+urlpatterns = [
+    path('bf/', 'bf.urls'),
+    path('admin/', admin.site.urls),
+    path('accounts/login/$', auth_views.login),
+]
